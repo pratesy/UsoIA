@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UsoAI</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="widget" data-tauri-drag-region>
+
+    <!-- ações (hover) -->
+    <div class="actions" data-no-drag>
+      <button id="btnSettings" title="Personalizar">⚙</button>
+      <button id="btnHide" title="Esconder (continua na bandeja)">—</button>
+    </div>
+
+    <!-- ====== SKIN: PLANO (padrão, igual ao painel /usage) ====== -->
+    <div class="skin skin-plano" data-skin="plano">
+      <div class="lim">
+        <div class="lim-head">
+          <span class="lim-title">S</span>
+          <span class="lim-pct" data-bind="s-pct">—</span>
+          <span class="lim-reset" data-bind="s-reset">—</span>
+        </div>
+        <div class="lim-bar"><i data-bind="s-bar"></i></div>
+      </div>
+      <div class="lim">
+        <div class="lim-head">
+          <span class="lim-title">W</span>
+          <span class="lim-pct" data-bind="w-pct">—</span>
+          <span class="lim-reset" data-bind="w-reset">—</span>
+        </div>
+        <div class="lim-bar"><i data-bind="w-bar"></i></div>
+      </div>
+    </div>
+
+    <!-- ====== SKIN: SABRE DE LUZ ====== -->
+    <!-- % sobe junto com a ponta da lâmina; reset fica na base -->
+    <div class="skin skin-sabre" data-skin="sabre" hidden>
+      <div class="sabre-wrap" data-blade="single">
+        <span class="tip-pct" data-bind="driver-value">—</span>
+        <div class="sabre-ghost"></div>
+        <div class="sabre-blade">
+          <div class="sabre-tip"></div>
+        </div>
+        <div class="sabre-hilt"><span class="hilt-btn"></span></div>
+      </div>
+      <div class="sabre-base" data-bind="driver-reset">—</div>
+    </div>
+
+    <!-- ====== SKIN: DUO (dois sabres lado a lado) ====== -->
+    <div class="skin skin-duo" data-skin="duo" hidden>
+      <div class="duo-cell">
+        <div class="sabre-wrap" data-blade="s">
+          <span class="tip-pct" data-bind="duo-s-pct">—</span>
+          <div class="sabre-ghost"></div>
+          <div class="sabre-blade">
+            <div class="sabre-tip"></div>
+          </div>
+          <div class="sabre-hilt"><span class="hilt-btn"></span></div>
+        </div>
+        <div class="duo-label">S</div>
+        <div class="sabre-base" data-bind="duo-s-reset">—</div>
+      </div>
+      <div class="duo-cell">
+        <div class="sabre-wrap" data-blade="w">
+          <span class="tip-pct" data-bind="duo-w-pct">—</span>
+          <div class="sabre-ghost"></div>
+          <div class="sabre-blade">
+            <div class="sabre-tip"></div>
+          </div>
+          <div class="sabre-hilt"><span class="hilt-btn"></span></div>
+        </div>
+        <div class="duo-label">W</div>
+        <div class="sabre-base" data-bind="duo-w-reset">—</div>
+      </div>
+    </div>
+
+    <!-- ====== SKIN: MAUL (sabre duplo, Darth Maul) ====== -->
+    <div class="skin skin-maul" data-skin="maul" hidden>
+      <div class="maul-stage">
+        <span class="tip-pct" data-bind="maul-s-pct">—</span>
+        <div class="maul-blade up" data-blade="ms"><div class="sabre-tip"></div></div>
+        <div class="maul-hilt"><span class="hilt-btn"></span><span class="hilt-btn b"></span></div>
+        <div class="maul-blade down" data-blade="mw"><div class="sabre-tip"></div></div>
+        <span class="tip-pct down" data-bind="maul-w-pct">—</span>
+      </div>
+      <div class="maul-readout">
+        <span data-bind="maul-s-reset">—</span>
+        <span data-bind="maul-w-reset">—</span>
+      </div>
+    </div>
+
+    <!-- ====== SKIN: KART ====== -->
+    <!-- % acompanha o carrinho; reset fica na base -->
+    <div class="skin skin-kart" data-skin="kart" hidden>
+      <div class="track">
+        <div class="track-line"></div>
+        <span class="kart-pct" data-bind="driver-value">—</span>
+        <div class="flag">🏁</div>
+        <div class="kart" data-bind="kart">
+          <span class="car">🏎️</span>
+        </div>
+      </div>
+      <div class="kart-base" data-bind="driver-reset">—</div>
+    </div>
+
+    <!-- ====== SKIN: MINIMAL ====== -->
+    <div class="skin skin-minimal" data-skin="minimal" hidden>
+      <div class="pill">
+        <span class="dot s"></span>
+        <span class="label">S</span>
+        <span class="val" data-bind="s-pct2">—</span>
+        <span class="bar"><i data-bind="s-bar2"></i></span>
+      </div>
+      <div class="pill">
+        <span class="dot w"></span>
+        <span class="label">W</span>
+        <span class="val" data-bind="w-pct2">—</span>
+        <span class="bar"><i data-bind="w-bar2"></i></span>
+      </div>
+    </div>
+
+    <div class="stamp" data-bind="stamp"></div>
+    <div id="resize-handle" title="Arrastar para redimensionar · duplo-clique para restaurar"></div>
+  </div>
+
+  <!-- ====== PERSONALIZAÇÃO ====== -->
+  <div id="settings" class="settings" hidden data-no-drag>
+    <header>
+      <strong>UsoAI</strong>
+      <button id="btnClose">✕</button>
+    </header>
+
+    <label class="field">
+      <span>Token de acesso (OAuth)</span>
+      <input id="token" type="password" placeholder="sk-ant-oat01-…" autocomplete="off" />
+    </label>
+    <p class="hint">
+      Gere com <code>claude setup-token</code> e cole acima. Fica guardado no
+      <strong>cofre do sistema</strong> (Keychain / Credential Manager / libsecret).
+      <a href="#" id="testToken">Testar</a> · <a href="#" id="clearToken">Remover</a>
+      <br><em data-bind="token-status"></em>
+    </p>
+
+    <label class="field">
+      <span>Skin</span>
+      <div class="seg" data-group="skin">
+        <button data-val="plano">Plano</button>
+        <button data-val="sabre">Sabre</button>
+        <button data-val="duo">Duo</button>
+        <button data-val="maul">Maul</button>
+        <button data-val="kart">Kart</button>
+        <button data-val="minimal">Mini</button>
+      </div>
+    </label>
+
+    <label class="field">
+      <span>Métrica das skins (sabre/kart)</span>
+      <div class="seg" data-group="driver">
+        <button data-val="weekly">Semana</button>
+        <button data-val="session">Sessão</button>
+      </div>
+    </label>
+
+    <label class="field inline">
+      <span>Cor sessão</span>
+      <input id="accentS" type="color" value="#2f7bff" />
+    </label>
+
+    <label class="field inline">
+      <span>Cor semana</span>
+      <input id="accentW" type="color" value="#ff4cd0" />
+    </label>
+
+    <label class="field inline">
+      <span>Tamanho</span>
+      <div class="seg" data-group="size">
+        <button data-val="small">P</button>
+        <button data-val="medium">M</button>
+        <button data-val="large">G</button>
+      </div>
+    </label>
+
+    <label class="field inline">
+      <span>Orientação</span>
+      <div class="seg" data-group="orient">
+        <button data-val="v">Em pé</button>
+        <button data-val="h">Deitada</button>
+      </div>
+    </label>
+
+    <label class="field inline">
+      <span>Fundo</span>
+      <input id="opacity" type="range" min="0" max="100" value="35" />
+    </label>
+
+    <label class="field inline">
+      <span>Atualizar</span>
+      <input id="interval" type="range" min="5" max="300" step="5" value="60" />
+      <em data-bind="interval-label">60s</em>
+    </label>
+
+    <label class="field inline">
+      <span>Alerta em</span>
+      <input id="threshold" type="range" min="50" max="100" step="5" value="90" />
+      <em data-bind="threshold-label">90%</em>
+    </label>
+
+    <label class="check"><input type="checkbox" id="invert" /> Modo inverso (vai apagando)</label>
+    <label class="check"><input type="checkbox" id="noBg" /> Sem fundo (só o item)</label>
+    <label class="check"><input type="checkbox" id="showNumbers" checked /> Mostrar números</label>
+    <label class="check"><input type="checkbox" id="textHover" /> Textos só no hover</label>
+    <label class="check"><input type="checkbox" id="alwaysTop" checked /> Sempre no topo</label>
+
+    <p class="hint" data-bind="hint"></p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+           
