@@ -5,11 +5,11 @@
   "description": "Widget flutuante e delicado que mostra o uso do Claude Code (sessão e semana).",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SEU_USUARIO/usoai.git"
+    "url": "https://github.com/pratesy/UsoIA.git"
   },
-  "homepage": "https://github.com/SEU_USUARIO/usoai",
+  "homepage": "https://github.com/pratesy/UsoIA",
   "bugs": {
-    "url": "https://github.com/SEU_USUARIO/usoai/issues"
+    "url": "https://github.com/pratesy/UsoIA/issues"
   },
   "license": "MIT",
   "scripts": {
