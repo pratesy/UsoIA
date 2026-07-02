@@ -26,18 +26,18 @@ Leia sob demanda, conforme a tarefa — não é preciso carregar tudo de uma vez
 
 | Arquivo | Quando ler |
 | --- | --- |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | entender o fluxo de dados de ponta a ponta antes de mexer em qualquer coisa |
-| [BACKEND.md](BACKEND.md) | mexer em `src-tauri/` — comandos Tauri, `limits.rs`, `secret.rs`, `usage.rs`, config Tauri/Cargo/capabilities |
-| [FRONTEND.md](FRONTEND.md) | mexer em `src/` — prefs, `render()`, skins, CSS, `index.html` |
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | entender o fluxo de dados de ponta a ponta antes de mexer em qualquer coisa |
+| [BACKEND.md](docs/BACKEND.md) | mexer em `src-tauri/` — comandos Tauri, `limits.rs`, `secret.rs`, `usage.rs`, config Tauri/Cargo/capabilities |
+| [FRONTEND.md](docs/FRONTEND.md) | mexer em `src/` — prefs, `render()`, skins, CSS, `index.html` |
 | [README.md](README.md) | apresentação pro usuário final, como rodar, créditos |
-| [ROADMAP.md](ROADMAP.md) | o que ainda falta / próximas etapas |
+| [ROADMAP.md](docs/ROADMAP.md) | o que ainda falta / próximas etapas |
 
 ## Estrutura
 
 ```
-src/                     # front-end — ver FRONTEND.md
+src/                     # front-end — ver docs/FRONTEND.md
   index.html · styles.css · app.js
-src-tauri/src/           # back-end — ver BACKEND.md
+src-tauri/src/           # back-end — ver docs/BACKEND.md
   limits.rs · secret.rs · usage.rs · lib.rs · main.rs
 src-tauri/tauri.conf.json · capabilities/default.json
 ```
@@ -53,7 +53,7 @@ npm run build                  # instaladores
 Para inspecionar visualmente sem compilar: abra `src/index.html` no navegador
 (entra em **modo demo** — `IS_APP` falso → usa `mockLimits()`).
 
-## Fluxo de dados (resumo — detalhe completo em ARCHITECTURE.md)
+## Fluxo de dados (resumo — detalhe completo em docs/ARCHITECTURE.md)
 
 1. `app.js` chama o comando Tauri `get_limits(token)`.
 2. `limits.rs` faz `POST https://api.anthropic.com/v1/messages` (1 token Haiku) com
