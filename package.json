@@ -1,6 +1,6 @@
 {
   "name": "usoai",
-  "version": "0.1.0",
+  "version": "1.5.0",
   "private": false,
   "description": "Widget flutuante e delicado que mostra o uso do Claude Code (sessão e semana).",
   "repository": {
