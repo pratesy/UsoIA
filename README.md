@@ -31,6 +31,16 @@ e "sempre no topo".
 
 ---
 
+## Imagens
+
+<img width="326" height="109" alt="image" src="https://github.com/user-attachments/assets/c88829f3-ecde-40a1-94d8-c79787927fbb" />
+<img width="165" height="228" alt="image" src="https://github.com/user-attachments/assets/97e4d1b8-3fb3-4955-9216-124f445e026e" />
+<img width="212" height="214" alt="image" src="https://github.com/user-attachments/assets/7c58b3d7-2adb-47f7-b0a1-fca0aab92043" />
+<img width="194" height="89" alt="image" src="https://github.com/user-attachments/assets/610efb4a-2f5e-4a40-b2e2-97db015d3a32" />
+
+
+
+
 ## 📡 De onde vêm os números (e um aviso honesto)
 
 O `%` do plano e os horários de reset **não estão nos logs locais** — eles vivem
