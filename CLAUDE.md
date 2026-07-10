@@ -30,6 +30,7 @@ Leia sob demanda, conforme a tarefa — não é preciso carregar tudo de uma vez
 | [BACKEND.md](docs/BACKEND.md) | mexer em `src-tauri/` — comandos Tauri, `limits.rs`, `secret.rs`, `usage.rs`, config Tauri/Cargo/capabilities |
 | [FRONTEND.md](docs/FRONTEND.md) | mexer em `src/` — prefs, `render()`, skins, CSS, `index.html` |
 | [README.md](README.md) | apresentação pro usuário final, como rodar, créditos |
+| [UPDATER.md](docs/UPDATER.md) | mexer no auto-update — chaves de assinatura, `latest.json`, workflow de release, gotchas |
 | [ROADMAP.md](docs/ROADMAP.md) | o que ainda falta / próximas etapas |
 
 ## Estrutura

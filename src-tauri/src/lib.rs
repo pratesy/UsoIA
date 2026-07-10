@@ -55,10 +55,34 @@ fn toggle_window(window: &WebviewWindow) {
     }
 }
 
+/// Traz o widget de volta ao centro da tela. Serve para resgatar a janela
+/// quando ela ficou fora da área visível (ex.: atrás da barra lateral direita).
+/// Ao mover, o handler `onMoved` do front-end persiste a nova posição sozinho.
+fn center_window(window: &WebviewWindow) {
+    let _ = window.show();
+    let _ = window.center();
+    let _ = window.set_focus();
+}
+
+/// Auto-update silencioso: checa o `latest.json` no GitHub Releases, e se houver
+/// versão nova, baixa, instala e reinicia. Só roda em builds de release — em
+/// `tauri dev` não há app empacotado para atualizar. Falhas (offline, etc.) são
+/// ignoradas de propósito: nunca deve travar a abertura do widget.
+#[cfg(not(debug_assertions))]
+async fn try_update(handle: tauri::AppHandle) -> tauri_plugin_updater::Result<()> {
+    use tauri_plugin_updater::UpdaterExt;
+    if let Some(update) = handle.updater()?.check().await? {
+        update.download_and_install(|_chunk, _total| {}, || {}).await?;
+        handle.restart();
+    }
+    Ok(())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .invoke_handler(tauri::generate_handler![
             get_usage,
             get_limits,
@@ -70,8 +94,9 @@ pub fn run() {
         .setup(|app| {
             // Ícone na bandeja com menu mínimo.
             let show = MenuItem::with_id(app, "show", "Mostrar / Esconder", true, None::<&str>)?;
+            let center = MenuItem::with_id(app, "center", "Centralizar na tela", true, None::<&str>)?;
             let quit = MenuItem::with_id(app, "quit", "Sair", true, None::<&str>)?;
-            let menu = Menu::with_items(app, &[&show, &quit])?;
+            let menu = Menu::with_items(app, &[&show, &center, &quit])?;
 
             TrayIconBuilder::new()
                 .icon(app.default_window_icon().unwrap().clone())
@@ -83,10 +108,26 @@ pub fn run() {
                             toggle_window(&w);
                         }
                     }
+                    "center" => {
+                        if let Some(w) = app.get_webview_window("main") {
+                            center_window(&w);
+                        }
+                    }
                     "quit" => app.exit(0),
                     _ => {}
                 })
                 .build(app)?;
+
+            // Verifica atualizações em segundo plano (apenas em release).
+            #[cfg(not(debug_assertions))]
+            {
+                let handle = app.handle().clone();
+                tauri::async_runtime::spawn(async move {
+                    if let Err(e) = try_update(handle).await {
+                        eprintln!("updater: {e}");
+                    }
+                });
+            }
 
             Ok(())
         })
