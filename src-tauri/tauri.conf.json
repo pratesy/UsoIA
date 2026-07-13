@@ -47,7 +47,7 @@
       "endpoints": [
         "https://github.com/pratesy/UsoIA/releases/latest/download/latest.json"
       ],
-      "pubkey": "SUBSTITUA_PELA_SUA_CHAVE_PUBLICA_DO_UPDATER"
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDMyRjFBOUI4OTM0MEEyQzEKUldUQm9rQ1R1S254TW1qTEJVNXlhcHY3aG5Eb3hvaEJUTGFkZ3ovODN2eWs5K1dkYlFkZmVOUUcK"
     }
   }
 }
