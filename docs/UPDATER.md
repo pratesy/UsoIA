@@ -58,8 +58,9 @@ Em **Settings → Secrets and variables → Actions**, crie:
 | `TAURI_SIGNING_PRIVATE_KEY` | conteúdo inteiro do arquivo `usoai.key` |
 | `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` | a senha definida no passo 1 |
 
-(Os secrets `SIGNPATH_API_TOKEN` e `SIGNPATH_ORGANIZATION_ID`, da assinatura
-Authenticode do Windows, continuam necessários como antes.)
+(A assinatura Authenticode do Windows via SignPath está desativada por ora — o
+`.exe` sai sem ela e dispara o aviso do SmartScreen. Para reativar, ver
+`docs/ROADMAP.md`.)
 
 ## Como lançar uma versão
 

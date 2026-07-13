@@ -31,6 +31,13 @@ obrigatório; é um mapa de possibilidades.
 - [ ] **Variante horizontal** do Maul (lâminas para os lados, tipo bastão deitado).
 - [ ] **Releases assinados** + workflow de CI (Win/macOS/Linux) publicando
       instaladores no GitHub Releases.
+- [ ] **Assinatura Authenticode do instalador Windows** via SignPath Foundation
+      (grátis p/ open source, mas exige cadastro + aprovação). Hoje o `.exe` sai
+      sem assinatura e dispara o aviso do SmartScreen. Ao aprovar: criar os
+      secrets `SIGNPATH_API_TOKEN` e `SIGNPATH_ORGANIZATION_ID`, e reativar no
+      `.github/workflows/release.yml` o passo de assinatura — assinando o `.exe`
+      com a SignPath **antes** de gerar o `.sig` minisign do updater (a
+      Authenticode altera os bytes do PE e invalidaria uma assinatura feita antes).
 - [ ] **Stream Deck / barra de menu** como saída alternativa.
 - [ ] **Modo "statusline"** para terminal, sem app externo.
 
